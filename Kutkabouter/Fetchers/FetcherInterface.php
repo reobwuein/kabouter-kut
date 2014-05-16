@@ -3,7 +3,12 @@
 interface FetcherInterface
 {
     /**
-     * @return \Kutkabouter\Reviews\Row
+     * @return array
      */
     public function next();
+
+    /**
+     * @return array
+     */
+    public function getHeaders();
 } 
