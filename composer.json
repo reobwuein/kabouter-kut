@@ -1,0 +1,16 @@
+{
+	"name": "kutkabouter/kutkabouter",
+	"description": "App to give advice on places to avoid and insult friends.",
+	"keywords": ["kutkabouter", "avoid", "insult"],
+	"license": "MIT",
+    "require": {
+        "slim/slim": "2.4.*"
+    },
+    "autoload": {
+		"psr-4": {
+            "Kutkabouter": ""
+        }
+	},
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
