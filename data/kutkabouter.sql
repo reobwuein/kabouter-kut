@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text,
   `longtitude` float NOT NULL,
-  `lattitude` float NOT NULL,
+  `latitude` float NOT NULL,
   `review1` text NOT NULL,
   `review2` text,
   `review3` text,

@@ -77,7 +77,7 @@ class CsvFetcher implements FetcherInterface
 
     protected function setHeaders()
     {
-        $this->headers = array_flip($this->getNextLineAsArray());
+        $this->headers = $this->getNextLineAsArray();
     }
 
     protected function getNextLineAsArray()

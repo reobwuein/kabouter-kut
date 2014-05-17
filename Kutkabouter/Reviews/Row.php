@@ -12,7 +12,7 @@ class Row
     /** @var float */
     public $longtitude;
     /** @var float */
-    public $lattitude;
+    public $latitude;
     /** @var string */
     public $name;
     /** @var array */
@@ -21,15 +21,15 @@ class Row
     /**
      * @param int $id
      * @param string $longtitude
-     * @param string $lattitude
+     * @param string $latitude
      * @param string $name
      * @param array $reviews
      */
-    public function __construct($id, $longtitude, $lattitude, $name, array $reviews)
+    public function __construct($id, $longtitude, $latitude, $name, array $reviews)
     {
         $this->id = $id;
         $this->longtitude = $longtitude;
-        $this->lattitude = $lattitude;
+        $this->latitude = $latitude;
         $this->name = $name;
         $this->reviews = $reviews;
     }
