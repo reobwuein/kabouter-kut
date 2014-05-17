@@ -95,11 +95,11 @@ class DataGrabber
     public function grabYelpReviews()
     {
         $db = new Db();
-        $result = $db->query("select * from reviews where review3 is null limit 5");
+        $result = $db->query("select * from reviews where review3 is null");
         while ($row = $result->fetch_array())
         {
             $fetcher = new \Kutkabouter\Fetchers\YelpFetcher();
-            $result = $fetcher->fetch($row['name']);
+            $fetcher->fetch($row['name']);
         }
         $result->close();
     }

@@ -36,8 +36,15 @@ class YelpFetcher
         $this->search = $search;
 
         $business = $this->fetchBusiness($search);
-        $businessId = $business->businesses[0]->id;
-        $this->fetchReviews($businessId);
+        if (! empty($business->businesses[0]))
+        {
+            $businessId = $business->businesses[0]->id;
+            $this->fetchReviews($businessId);
+        }
+        else
+        {
+            echo 'No business found for '.$search.PHP_EOL;
+        }
     }
 
     protected function fetchBusiness($search)
@@ -45,6 +52,33 @@ class YelpFetcher
         $url = 'http://api.yelp.com/v2/search?term=' . urlencode($search) . '&location=Amsterdam';
 
         return $this->request($url);
+    }
+
+    protected function request($url)
+    {
+        // Yelp uses HMAC SHA1 encoding
+        $signature_method = new OAuthSignatureMethod_HMAC_SHA1();
+
+        // Build OAuth Request using the OAuth PHP library. Uses the consumer and token object created above.
+        $oauthrequest = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, 'GET', $url);
+
+        // Sign the request
+        $oauthrequest->sign_request($signature_method, $this->consumer, $this->token);
+
+        // Get the signed URL
+        $signed_url = $oauthrequest->to_url();
+
+        // Send Yelp API Call
+        $ch = curl_init($signed_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $data = curl_exec($ch); // Yelp response
+        curl_close($ch);
+
+        // Handle Yelp response data
+        $response = json_decode($data);
+
+        return $response;
     }
 
     protected function fetchReviews($businessId)
@@ -111,32 +145,5 @@ class YelpFetcher
         }
 
         $result->close();
-    }
-
-    protected function request($url)
-    {
-        // Yelp uses HMAC SHA1 encoding
-        $signature_method = new OAuthSignatureMethod_HMAC_SHA1();
-
-        // Build OAuth Request using the OAuth PHP library. Uses the consumer and token object created above.
-        $oauthrequest = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, 'GET', $url);
-
-        // Sign the request
-        $oauthrequest->sign_request($signature_method, $this->consumer, $this->token);
-
-        // Get the signed URL
-        $signed_url = $oauthrequest->to_url();
-
-        // Send Yelp API Call
-        $ch = curl_init($signed_url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        $data = curl_exec($ch); // Yelp response
-        curl_close($ch);
-
-        // Handle Yelp response data
-        $response = json_decode($data);
-
-        return $response;
     }
 } 
