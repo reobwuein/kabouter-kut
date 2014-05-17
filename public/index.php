@@ -15,8 +15,15 @@ $app->get('/review/:long/:lat', function($long, $lat) use ($app) {
     $result = $stmt->get_result();
     $row = $result->fetch_array();
     $reviews = array_filter($row);
-    $review = $reviews[array_rand($reviews)];
 
-    $app->response->write(json_encode($review));
+    if (empty($reviews))
+    {
+        $this->response->write("error: no reviews available");
+    }
+    else
+    {
+        $review = $reviews[array_rand($reviews)];
+        $app->response->write(json_encode($review));
+    }
 });
 $app->run();
