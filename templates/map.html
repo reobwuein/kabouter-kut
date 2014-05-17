@@ -16,7 +16,7 @@
       function initialize() {
         var mapOptions = {
           center: new google.maps.LatLng(52.3667, 4.9000),
-          zoom: 14,
+          zoom: 15,
           styles: [
     {
         "featureType": "road",
@@ -137,12 +137,16 @@
         var map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
 
+        var icon = {};
+        icon.url = "./images/arrow_m.svg";
+        icon.scaledSize = new google.maps.Size(91.8, 189);
 
         var myLatlng = new google.maps.LatLng(52.3667, 4.9000);
         // To add the marker to the map, use the 'map' property
         var marker = new google.maps.Marker({
             map: map,
-            title:"Kabouter"
+            title:"Kabouter",
+            icon: icon
         });
 
         var x = document.getElementById("x");
@@ -159,6 +163,7 @@
         function showPosition(position)
         {
             marker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+            map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude))
         }
         
 
