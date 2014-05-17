@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map-canvas { height: 100% }
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmqPgyCqh1cj7UrP4CaBAwj3NZP2R_qbE&sensor=true">
+    </script>
+    <script type="text/javascript">
+
+
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(52.3667, 4.9000),
+          zoom: 14,
+          styles: [
+    {
+        "featureType": "road",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "weight": 0.8
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#000000"
+            }
+        ]
+    },
+    {
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    }
+]
+        }
+
+        var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+
+
+        var myLatlng = new google.maps.LatLng(52.3667, 4.9000);
+        // To add the marker to the map, use the 'map' property
+        var marker = new google.maps.Marker({
+            map: map,
+            title:"Kabouter"
+        });
+
+        var x = document.getElementById("x");
+
+        function getLocation()
+        {
+          if (navigator.geolocation)
+            {
+            navigator.geolocation.getCurrentPosition(showPosition,showError);
+            }
+          else{x.innerHTML = "Geolocation is not supported by this browser.";}
+        }
+
+        function showPosition(position)
+        {
+            marker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+        }
+        
+
+        function showError(error)
+        {
+          switch(error.code) 
+            {
+            case error.PERMISSION_DENIED:
+              x.innerHTML = "User denied the request for Geolocation."
+              break;
+            case error.POSITION_UNAVAILABLE:
+              x.innerHTML = "Location information is unavailable."
+              break;
+            case error.TIMEOUT:
+              x.innerHTML = "The request to get user location timed out."
+              break;
+            case error.UNKNOWN_ERROR:
+              x.innerHTML = "An unknown error occurred."
+              break;
+            }
+          }
+        getLocation();
+
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+      var x = document.getElementById("x");
+      window.addEventListener('deviceorientation', function(e) {
+          //console.log(e);
+      }, false);
+
+    </script>
+  </head>
+  <body>
+    <div id="x"></div>
+    <div id="map-canvas"/>
+  </body>
+</html>
