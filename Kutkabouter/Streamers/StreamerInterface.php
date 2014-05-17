@@ -1,6 +1,6 @@
-<?php namespace Kutkabouter\Fetchers;
+<?php namespace Kutkabouter\Streamers;
 
-interface FetcherInterface
+interface StreamerInterface
 {
     /**
      * @return array

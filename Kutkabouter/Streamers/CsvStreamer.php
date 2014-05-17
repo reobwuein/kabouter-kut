@@ -1,6 +1,6 @@
-<?php namespace Kutkabouter\Fetchers; 
+<?php namespace Kutkabouter\Streamers;
 
-class CsvFetcher implements FetcherInterface
+class CsvStreamer implements StreamerInterface
 {
     /** @var string */
     protected $url;

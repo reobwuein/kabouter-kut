@@ -1,7 +1,7 @@
 <?php namespace Kutkabouter;
 
 use Kutkabouter\Fetchers\GeoFetcher;
-use Kutkabouter\Fetchers\CsvFetcher;
+use Kutkabouter\Fetchers\CsvStreamer;
 use Kutkabouter\Db;
 
 /**
@@ -26,7 +26,7 @@ class DataGrabber
 
     public function grabEtenEnDrinken()
     {
-        $fetcher = new CsvFetcher('http://www.amsterdamopendata.nl/files/EtenDrinken.csv', ';');
+        $fetcher = new CsvStreamer('http://www.amsterdamopendata.nl/files/EtenDrinken.csv', ';');
 
         $headers = array_flip($fetcher->getHeaders());
 
@@ -55,7 +55,7 @@ class DataGrabber
 
     public function grabHotels()
     {
-        $fetcher = new CsvFetcher('http://www.amsterdamopendata.nl/documents/10180/25203/Lijst%20hotels%20MRA%202012.csv', ';');
+        $fetcher = new CsvStreamer('http://www.amsterdamopendata.nl/documents/10180/25203/Lijst%20hotels%20MRA%202012.csv', ';');
         $headers = array_flip($fetcher->getHeaders());
 
         $gf = new GeoFetcher();
@@ -90,5 +90,17 @@ class DataGrabber
     {
         $number = str_replace(',', '.', $number);
         return round((float) $number, 3);
+    }
+
+    public function grabYelpReviews()
+    {
+        $db = new Db();
+        $result = $db->query("select * from reviews where review3 is null limit 5");
+        while ($row = $result->fetch_array())
+        {
+            $fetcher = new \Kutkabouter\Fetchers\YelpFetcher();
+            $result = $fetcher->fetch($row['name']);
+        }
+        $result->close();
     }
 } 
