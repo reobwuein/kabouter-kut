@@ -1,4 +1,4 @@
-<?php namespace Kutkabouter\Fetchers; 
+<?php namespace Kutkabouter\Streamers;
 
 class EndOfFetchStreamException extends \Exception
 {

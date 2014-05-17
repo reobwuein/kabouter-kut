@@ -29,4 +29,9 @@ class Db
 
         return $stmt;
     }
+
+    public function __destruct()
+    {
+        $this->conn->close();
+    }
 } 
