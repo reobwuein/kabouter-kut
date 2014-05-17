@@ -1,0 +1,104 @@
+
+body, html{
+	margin:0;
+	padding:0;
+	font-family: 'Coming Soon', cursive;
+}
+
+body > div{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+#shout-box{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	max-height: 100%;
+}
+#shout-box img{
+	float:right;
+	height: 80%;
+	margin: 5%;
+}
+#shout-box img:after{
+	content:"";
+	display: block;
+	clear: both;
+}
+
+#map-box{
+	position: absolute;
+	right:0;
+	width: 1%;
+	height: 100%;
+	transition: all .5s;
+	top:0;
+	background: white;
+	outline: 1px solid #000;
+}
+#map-canvas{
+	width: 10000%;
+	height: 100%;
+}
+
+#map-box:target{
+	width: 100%;
+}
+#map-box:target #map-canvas{
+	width: 100%;
+	margin:auto;
+}
+
+nav{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	text-align: center;
+	width: 100%
+}
+
+nav ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+nav li{
+	display: inline-block;
+}
+nav li a{
+	display: inline-block;
+	padding: 2em;
+	color:#FFF;
+	background: #000;
+	text-decoration: none;
+}
+
+#shout-feed{
+	font-size: 1.5em;
+	top:30%;
+	left:1em;
+	display: inline;
+	position: relative;
+}
+
+
+@media screen and (max-width: 1000px) {
+
+    #shout-box img{
+		float:none;
+		height: 70%;
+		margin: 5% auto;
+		display: block;
+    }
+    #shout-feed {
+    	display: none;
+    	visibility: hidden;
+    }
+
+}
+
+

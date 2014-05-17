@@ -1,16 +1,17 @@
-<!DOCTYPE html>
 <html>
-  <head>
+<head>
+	<title>Kutkabouter</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <link rel="apple-touch-icon" href="/custom_icon.png">
-    <style type="text/css">
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      #map-canvas { height: 100% }
-    </style>
-    <script type="text/javascript"
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="images/icons/iTunesArtwork.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/icons/Icon-76.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="images/icons/Icon-60.png">
+    <link rel="apple-touch-icon" sizes="40x40" href="images/icons/Icon-Small-40.png">
+    <link rel="apple-touch-icon" sizes="20x20" href="images/icons/Icon-Small.png">
+	<script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmqPgyCqh1cj7UrP4CaBAwj3NZP2R_qbE&sensor=true">
     </script>
+    <link href='http://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
     <script type="text/javascript">
 
 
@@ -150,15 +151,16 @@
             icon: icon
         });
 
-        var x = document.getElementById("x");
+        var x = document.getElementById("notification");
 
         function getLocation()
         {
-          if (navigator.geolocation)
-            {
-            navigator.geolocation.getCurrentPosition(showPosition,showError);
+            if (navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(showPosition,showError);
+                setTimeout(getLocation, 1000);
+            }else{
+                x.innerHTML = "Geolocation is not supported by this browser.";
             }
-          else{x.innerHTML = "Geolocation is not supported by this browser.";}
         }
 
         function showPosition(position)
@@ -194,9 +196,85 @@
 
 
     </script>
-  </head>
-  <body>
-    <div id="x"></div>
-    <div id="map-canvas"/>
-  </body>
+	<style type="text/css">
+
+		body, html{
+			margin:0;
+			padding:0;
+			font-family: 'Coming Soon', cursive;
+		}
+
+		body > div{
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		#shout-box{
+			position: relative;
+			width: 100%;
+			height: 100%;
+		}
+
+		#shout-box img{
+			float:right;
+			height: 80%;
+			margin: 10%;
+		}
+
+		#map-box{
+			position: absolute;
+			right:0;
+			width: 1%;
+			height: 100%;
+			transition: all .5s;
+			top:0;
+			background: white;
+			outline: 1px solid #000;
+		}
+		#map-canvas{
+			width: 10000%;
+			height: 100%;
+		}
+
+		#map-box:target{
+			width: 100%;
+		}
+		#map-box:target #map-canvas{
+			width: 100%;
+			margin:auto;
+		}
+
+		nav{
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			z-index: 2;
+		}
+
+		.shout-feed{
+
+		}
+
+	</style>
+</head>
+<body>
+	<div>
+		<nav>
+			<ul>
+				<li><a href="#shout-box">Kabouter</a></li>
+				<li><a href="#map-box">Map</a></li>
+			</ul>
+		</nav>
+		<div id="shout-box">
+			<div class="shout-feed">
+			</div>
+			<img src="images/dance_m.svg">
+		</div>
+		<div id="map-box">
+			<div id="notification"></div>
+			<div id="map-canvas"></div>
+		</div>
+	</div>
+</body>
 </html>
