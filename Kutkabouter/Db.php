@@ -11,6 +11,7 @@ class Db
 
     public function __construct()
     {
+        //$this->conn = new \mysqli('localhost', 'u1004963_kut', '#3@/+?.zWs', 'db1004963_kut');
         $this->conn = new \mysqli('localhost', 'kutkabouter', 'root', 'kutkabouter');
         if (mysqli_connect_errno())
             die(mysqli_connect_error());

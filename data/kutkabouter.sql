@@ -19,8 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Databank: `kutkabouter`
 --
-CREATE DATABASE IF NOT EXISTS `kutkabouter` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `kutkabouter`;
+
 
 -- --------------------------------------------------------
 
